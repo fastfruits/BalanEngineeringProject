@@ -1,11 +1,14 @@
 package main;
 
+import java.awt.Component;
 import javax.swing.JFrame;
 
 public class Main {
 
     public static JFrame window;
-    public ActiveWindow activeWindow = new ActiveWindow();
+    public static Component activeWindow= new Component() {
+        
+    };
 
     public static void main(String[] args) throws Exception {
         System.out.println("Running...");
@@ -14,7 +17,7 @@ public class Main {
     }
 
     //Sets up the main window JFrame used throughout the program for now.
-    public void setUpWindow(){
+    public static void setUpWindow(){
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(true);
@@ -24,5 +27,4 @@ public class Main {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
     }
-
 }
