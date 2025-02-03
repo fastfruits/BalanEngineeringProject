@@ -10,6 +10,7 @@ public class ActiveWindow{
 
     };
     public static Dimension minSize;
+    //Constructs the main window currently used throughout the program
     public ActiveWindow(){
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
