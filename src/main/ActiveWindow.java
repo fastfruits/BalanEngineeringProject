@@ -11,7 +11,9 @@ public class ActiveWindow{
     };
     public static Dimension minSize;
     //Constructs the main window currently used throughout the program
-    public ActiveWindow(){
+    public ActiveWindow(Component c, Dimension d){
+        minSize=d;
+        activeWindow=c;
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(true);
@@ -23,5 +25,20 @@ public class ActiveWindow{
         window.setVisible(true);
     }
 
+    public static void setActiveWindow(Component activeWindow) {
+        ActiveWindow.activeWindow = activeWindow;
+    }
+    public static void setMinSize(Dimension minSize) {
+        ActiveWindow.minSize = minSize;
+    }
+
+    public static Component getActiveWindow() {
+        return activeWindow;
+    }
+
+    public static Dimension getMinSize() {
+        return minSize;
+    }
+    
 
 }
