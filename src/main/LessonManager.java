@@ -24,11 +24,11 @@ public class LessonManager implements ActionListener{
     public JButton getScriptButton(int i){
         return s.getButton(i);
     }
-    public static JPanel getNextScript(){
+    public JPanel getNextScript(){
         return s.getScript(currentScriptPos);
 
     }
-    public static JPanel getNextQuestion(){
+    public JPanel getNextQuestion(){
         return q.getQuestion(currentQuestionPos);
     }
     public int getCurrentScriptPos(){

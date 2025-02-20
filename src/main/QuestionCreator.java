@@ -39,16 +39,16 @@ public class QuestionCreator{
         }
     }
     
-    public static JPanel getQuestion(int i){
+    public JPanel getQuestion(int i){
         return qArr[i];
     }
     public JButton getAns(int i, int qNum){
         return buttons[4*qNum+i];
     }
-    public static String getAnsString(int i, int qNum){
+    public String getAnsString(int i, int qNum){
         return buttons[4*qNum+i].getActionCommand();
     }
-    public static boolean cmprAns(String s, int i){
+    public boolean cmprAns(String s, int i){
         return s.substring(0,1).equals(ansKey[i].substring(0, 1));
     }
     public int getLength(){

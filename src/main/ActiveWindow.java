@@ -91,7 +91,7 @@ public class ActiveWindow implements ActionListener{
             window.add(currentFrame);
             window.pack();
             lesson.getScriptButton().addActionListener(this);
-            lesson.getScriptButton().addActionListener(lesson);;
+            lesson.getScriptButton().addActionListener(lesson);
         }
         else if(lesson.getCurrentQuestionPos()<questions.length/6){
             window.remove(currentFrame);
