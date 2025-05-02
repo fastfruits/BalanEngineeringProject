@@ -5,8 +5,8 @@ import javax.swing.*;
 
 
 public class ScriptCreator {
-    public static JPanel[] scripts;
-    public static JButton[] buttons;
+    public JPanel[] scripts;
+    public JButton[] buttons;
 
     public ScriptCreator(String[] arr) {
         scripts = new JPanel[arr.length];
@@ -26,7 +26,6 @@ public class ScriptCreator {
         }
     }
     public JPanel getScript(int i){
-        System.out.println(i);
         return scripts[i];
     }
     public JButton getButton(int i){

@@ -10,9 +10,16 @@ public class ActiveWindow implements ActionListener{
 
     public JPanel currentFrame;
     public static JPanel btnPanel;
-    public static String[] scripts = new String[] {"This is a PlaceHolder SCRIPT", "This is the second PlaceHolder SCRIPT"};
-    public static String[] questions = new String[] {"This is a PlaceHolder QUESTION, the  answer is 4", "1","2","3","4","4","This is the second PlaceHolder QUESTION, the answer is 1","1","2","3","4","1"};
-    LessonManager lesson = new LessonManager(scripts,questions);
+    public static String[] scriptsOne = new String[] {"This is a PlaceHolder SCRIPT", "This is the second PlaceHolder SCRIPT"};
+    public static String[] questionsOne = new String[] {"This is a PlaceHolder QUESTION, the  answer is 4", "1","2","3","4","4","This is the second PlaceHolder QUESTION, the answer is 1","1","2","3","4","1", "This is the third PlaceHolder QUESTION, the answer is 3","1","2","3","4","3"};
+    public static String[] scriptsTwo = new String[] {"This is a PlaceHolder SCRIPT", "This is the second PlaceHolder SCRIPT", "This is the third placeHolder SCRIPT"};
+    public static String[] questionsTwo = new String[] {"This is a PlaceHolder QUESTION, the  answer is 4", "1","2","3","4","4","This is the second PlaceHolder QUESTION, the answer is 1","1","2","3","4","1"};
+    public static String[] scriptsThree = new String[] {"This is a PlaceHolder SCRIPT"};
+    public static String[] questionsThree = new String[] {"This is a PlaceHolder QUESTION, the  answer is 4", "1","2","3","4","4"};
+    LessonManager lessonOne = new LessonManager(scriptsOne,questionsOne);
+    LessonManager lessonTwo = new LessonManager(scriptsTwo,questionsTwo);
+    LessonManager lessonThree = new LessonManager(scriptsThree,questionsThree);
+    LessonManager lesson;
     public JLabel title = new JLabel("Choose a lesson");
     public static JLabel answerQuestion = new JLabel("Answer the question below");
 
@@ -37,6 +44,7 @@ public class ActiveWindow implements ActionListener{
         window.setMinimumSize(d);
         window.setTitle("Programmer Professional");
         window.setBackground(Color.ORANGE);
+        window.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
         titlePos.gridx=1;
@@ -65,7 +73,6 @@ public class ActiveWindow implements ActionListener{
         lesson1.addActionListener(this);
         lesson2.addActionListener(this);
         lesson3.addActionListener(this);
-
     }
 
     public static void setMinSize(Dimension minSize) {
@@ -78,26 +85,40 @@ public class ActiveWindow implements ActionListener{
     }
     public void actionPerformed(ActionEvent e){
         if(e.getActionCommand().contains("Lesson")){
-            window.setTitle(e.getActionCommand().substring(6, 17));
-            window.remove(btnPanel);
-            window.remove(title);
-            currentFrame = lesson.getNextScript();
-            window.pack();
-        }
-        if(lesson.getCurrentScriptPos()<scripts.length){
-            window.remove(currentFrame);
-            currentFrame = lesson.getNextScript();
-            System.out.println(currentFrame.toString());
-            window.add(currentFrame);
-            window.pack();
+            if(e.getActionCommand().contains("1")){
+                lesson = lessonOne;
+            }
+            else if(e.getActionCommand().contains("2")){
+                lesson=lessonTwo;
+            }
+            else if(e.getActionCommand().contains("3")){
+                lesson=lessonThree;
+            }
+            window.setTitle(e.getActionCommand().substring(6, 17)); 
+            btnPanel.setVisible(false);
+            title.setVisible(false);
+            window.validate();
+            }
+        if(lesson.getCurrentScriptPos()<lesson.getScriptLength()){
+            if(lesson.getCurrentScriptPos()>0){
+                lesson.getLastScript().setVisible(false);
+            }
+            lesson.getNextScript().setVisible(true);
+            window.add(lesson.getNextScript());
+            window.validate();
             lesson.getScriptButton().addActionListener(this);
             lesson.getScriptButton().addActionListener(lesson);
         }
-        else if(lesson.getCurrentQuestionPos()<questions.length/6){
-            window.remove(currentFrame);
-            currentFrame= lesson.getNextQuestion();
-            window.add(currentFrame);
-            window.pack();
+        else if(lesson.getCurrentQuestionPos()<lesson.getQuestionLength()){
+            if(lesson.getCurrentQuestionPos()>0){
+                lesson.getLastQuestion().setVisible(false);
+            }
+            else{
+                lesson.getLastScript().setVisible(false);
+            }
+            lesson.getNextQuestion().setVisible(true);
+            window.add(lesson.getNextQuestion());
+            window.validate();
             lesson.getQuestionButton(0, lesson.getCurrentQuestionPos()).addActionListener(this);
             lesson.getQuestionButton(1, lesson.getCurrentQuestionPos()).addActionListener(this);
             lesson.getQuestionButton(2, lesson.getCurrentQuestionPos()).addActionListener(this);
@@ -108,12 +129,13 @@ public class ActiveWindow implements ActionListener{
             lesson.getQuestionButton(3, lesson.getCurrentQuestionPos()).addActionListener(lesson);
         }
         else{
+            lesson.getLastQuestion().setVisible(false);
             lesson.reset();
-            for(int i = 0; i<scripts.length;i++){
+            for(int i = 0; i<lesson.getScriptLength();i++){
                 lesson.getScriptButton(i).removeActionListener(this);
                 lesson.getScriptButton(i).removeActionListener(lesson);
             }
-            for(int i =0;i<questions.length/6;i++){
+            for(int i =0;i<lesson.getQuestionLength();i++){
                 lesson.getQuestionButton(0, i).removeActionListener(this);
                 lesson.getQuestionButton(1, i).removeActionListener(this);
                 lesson.getQuestionButton(2, i).removeActionListener(this);
@@ -123,12 +145,10 @@ public class ActiveWindow implements ActionListener{
                 lesson.getQuestionButton(2, i).removeActionListener(lesson);
                 lesson.getQuestionButton(3, i).removeActionListener(lesson);
             }
-            window.remove(currentFrame);
-            window.add(btnPanel,buttonsPos);
-            window.add(title, titlePos);
+            title.setVisible(true);
+            btnPanel.setVisible(true);
             window.setTitle("Programmer Professional");
             window.validate();
-            window.pack();
         }
 
 

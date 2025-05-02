@@ -5,10 +5,10 @@ import javax.swing.*;
 
 public class QuestionCreator{
 
-    public static JLabel question;
-    public static JPanel[] qArr;
-    public static String[] ansKey;
-    public static JButton[] buttons;
+    public JLabel question;
+    public JPanel[] qArr;
+    public String[] ansKey;
+    public JButton[] buttons;
 
 
     public QuestionCreator(String[] arr){
