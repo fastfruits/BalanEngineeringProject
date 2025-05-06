@@ -8,6 +8,7 @@ import javax.swing.*;
 public class LessonManager implements ActionListener{
     public QuestionCreator q;
     public ScriptCreator s;
+    public int questionsCorrect=0;
     public int currentScriptPos=0;
     public int currentQuestionPos=0;
 
@@ -16,7 +17,6 @@ public class LessonManager implements ActionListener{
         s = new ScriptCreator(arrS);
     }
     public int getScriptLength(){
-        System.out.println(s.getLength());
         return s.getLength();
     }
     public int getQuestionLength(){
@@ -36,7 +36,6 @@ public class LessonManager implements ActionListener{
 
     }
     public JPanel getLastScript(){
-        System.out.println("Removed!");
         return s.getScript(currentScriptPos-1);
 
     }
@@ -44,7 +43,6 @@ public class LessonManager implements ActionListener{
         return q.getQuestion(currentQuestionPos);
     }
     public JPanel getLastQuestion(){
-        System.out.println("Removed!");
         return q.getQuestion(currentQuestionPos-1);
     }
     public int getCurrentScriptPos(){
@@ -58,6 +56,12 @@ public class LessonManager implements ActionListener{
             currentScriptPos++;
         }
         else if(currentQuestionPos<q.getLength()){
+            if(q.cmprAns(e.getActionCommand(),currentQuestionPos)){
+                questionsCorrect++;
+            }
+            currentQuestionPos++;
+        }
+        else if(currentQuestionPos==q.getLength()){
             currentQuestionPos++;
         }
 
@@ -68,9 +72,12 @@ public class LessonManager implements ActionListener{
     public JPanel getQuestion(int i){
         return q.getQuestion(i);
     }
+    public int getCorrect(){
+        return questionsCorrect;
+    }
     public void reset(){
         currentQuestionPos=0;
         currentScriptPos=0;
-        System.out.println("reset!");
+        questionsCorrect=0;
     }
 }
